@@ -28,7 +28,7 @@ function Signup() {
             return handleError('All fields are required')
         }
         try {
-            const url = `https://smit-hackathon-assignment-submission-portal-deploy.vercel.app//auth/signup`;
+            const url = `http://localhost:8080/auth/signup`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
