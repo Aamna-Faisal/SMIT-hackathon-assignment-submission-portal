@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
-import './Home2.css';
+import './Home2.css'
 import { Link } from 'react-router-dom';
 import Navbar2 from '../components/Navbar2';
 
@@ -32,15 +31,9 @@ function Home2() {
                         <p>Monitor and review assignments submitted by students. Check their progress and grades.</p>
                         <Link to="/view-submissions" className="feature-button">View Submissions</Link>
                     </div>
-                    <div className="feature-card">
-                        <h2>Grade Assignments</h2>
-                        <p>Grade student assignments and provide feedback directly from the portal.</p>
-                        <Link to="/grade-assignments" className="feature-button">Grade Assignments</Link>
-                    </div>
                 </div>
             </section>
 
-            {/* Modal for course selection */}
             {isModalOpen && (
                 <div className="modal-overlay">
                     <div className="modal-content">

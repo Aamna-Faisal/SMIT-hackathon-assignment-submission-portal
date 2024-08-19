@@ -10,8 +10,7 @@ import Dashboard from './pages/Dashboard1';
 import Dashboard2 from './pages/Dashboard2';
 import Dashboard3 from './pages/Dashboard3';
 import Dashboardt1 from './pages/Dashboardt1';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+
 import Dashboardt2 from './pages/Dashboardt2';
 import Dashboardt3 from './pages/Dashboardt3';
 import ViewSubmissions from './pages/ViewSubmissions';
@@ -20,13 +19,10 @@ import ViewSubmissions from './pages/ViewSubmissions';
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // const PrivateRoute = ({ element }) => {
-  //   return isAuthenticated ? element : <Navigate to="/login" />
-  // }
   const PrivateRoute = ({ element }) => {
-    const token = localStorage.getItem('token');
-    return token ? element : <Navigate to="/login" />;
-};
+    return isAuthenticated ? element : <Navigate to="/login" />;
+  };
+  
 
 
   return (

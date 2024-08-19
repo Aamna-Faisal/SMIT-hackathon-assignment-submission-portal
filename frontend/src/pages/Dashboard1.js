@@ -79,7 +79,7 @@ const Dashboard1 = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <div className="dashboard-container">
         <h2>Web and App Development</h2>
 
@@ -93,6 +93,9 @@ const Dashboard1 = () => {
             </select>
           </label>
         </div>
+
+        {/* Display error message if present */}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
 
         <div className="assignments-section">
           <h3>{filter.charAt(0).toUpperCase() + filter.slice(1)} Assignments</h3>

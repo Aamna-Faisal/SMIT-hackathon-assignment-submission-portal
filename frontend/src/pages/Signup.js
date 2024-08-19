@@ -5,39 +5,52 @@ import { handleError, handleSuccess } from '../utils';
 import logo from '../assets/logo.png'
 import './signup.css';
 
+const studentCode = 'student1234'; 
+const teacherCode = 'missFaiza1122'; 
 function Signup() {
     const [signupInfo, setSignupInfo] = useState({
         name: '',
         email: '',
         password: '',
-        userType: ''  // New state for user type
-    })
+        userType: '',
+        code: ''  
+    });
 
-    const navigate = useNavigate();
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        const copySignupInfo = { ...signupInfo };
-        copySignupInfo[name] = value;
-        setSignupInfo(copySignupInfo);
+const navigate = useNavigate();
+
+const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSignupInfo(prev => ({ ...prev, [name]: value }));
+}
+
+const handleSignup = async (e) => {
+    e.preventDefault();
+    const { name, email, password, userType, code } = signupInfo;
+
+    if (!name || !email || !password || !userType) {
+        return handleError('All fields are required');
     }
 
-    const handleSignup = async (e) => {
-        e.preventDefault();
-        const { name, email, password, userType } = signupInfo;
-        if (!name || !email || !password || !userType) {
-            return handleError('All fields are required')
-        }
-        try {
+    if (userType === 'teacher' && code !== teacherCode) {  
+        return handleError('Invalid teacher code');
+    }
+
+    if (userType === 'student' && code !== studentCode) {
+        return handleError('Invalid student code');
+    }
+     
+     try {
             const url = `https://smit-hackathon-assignment-submission-portal-deploy.vercel.app/auth/signup`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(signupInfo)
-            });
-            const result = await response.json();
+                body: JSON.stringify({ name, email, password, userType }) 
+            });           
+             const result = await response.json();
             const { success, message, error } = result;
+
             if (success) {
                 handleSuccess(message);
                 setTimeout(() => {
@@ -56,7 +69,7 @@ function Signup() {
 
     return (
         <>
-            <img className='smit-logo' src={logo} />
+            <img className='smit-logo' src={logo} alt="Logo" />
             <div className='container'>
                 <h1>Signup</h1>
                 <form onSubmit={handleSignup}>
@@ -103,8 +116,22 @@ function Signup() {
                             <option value='teacher'>Teacher</option>
                         </select>
                     </div>
+                    {(signupInfo.userType === 'teacher' || signupInfo.userType === 'student') && (
+                        <div>
+                            <label htmlFor='code'>
+                                {signupInfo.userType === 'teacher' ? 'Teacher Code' : 'Student Code'}
+                            </label>
+                            <input
+                                onChange={handleChange}
+                                type='text'
+                                name='code'
+                                placeholder={`Enter ${signupInfo.userType === 'teacher' ? 'teacher' : 'student'} code...`}
+                                value={signupInfo.code}
+                            />
+                        </div>
+                    )}
                     <button type='submit'>Signup</button>
-                    <span>Already have an account?
+                    <span>Already have an account? 
                         <Link to="/login">Login</Link>
                     </span>
                 </form>
