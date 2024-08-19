@@ -40,7 +40,7 @@ const handleSignup = async (e) => {
     }
      
      try {
-            const url = `https://smit-hackathon-assignment-submission-portal-deploy.vercel.app/auth/signup`;
+            const url = `smit-hackathon-assignment-submission-portal-mern-2cix.vercel.app/auth/signup`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {

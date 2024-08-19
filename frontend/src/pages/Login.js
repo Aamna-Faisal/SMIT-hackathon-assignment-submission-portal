@@ -43,7 +43,7 @@ const [userType, setUserType] = useState('');
         }
 
         try {
-            const url = `https://smit-hackathon-assignment-submission-portal-deploy.vercel.app/auth/login`;
+            const url = `smit-hackathon-assignment-submission-portal-mern-2cix.vercel.app/auth/login`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
