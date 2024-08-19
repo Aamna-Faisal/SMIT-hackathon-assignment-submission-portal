@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { handleError, handleSuccess } from '../utils';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
 import './signup.css';
 
 const studentCode = 'student1234'; 
@@ -16,46 +16,46 @@ function Signup() {
         code: ''  
     });
 
-const navigate = useNavigate();
-
-const handleChange = (e) => {
-    const { name, value } = e.target;
-    setSignupInfo(prev => ({ ...prev, [name]: value }));
-}
-
-const handleSignup = async (e) => {
-    e.preventDefault();
-    const { name, email, password, userType, code } = signupInfo;
-
-    if (!name || !email || !password || !userType) {
-        return handleError('All fields are required');
+    const navigate = useNavigate();
+    
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setSignupInfo(prev => ({ ...prev, [name]: value }));
     }
 
-    if (userType === 'teacher' && code !== teacherCode) {  
-        return handleError('Invalid teacher code');
-    }
+    const handleSignup = async (e) => {
+        e.preventDefault();
+        const { name, email, password, userType, code } = signupInfo;
+        
+        if (!name || !email || !password || !userType) {
+            return handleError('All fields are required');
+        }
+        
+        if (userType === 'teacher' && code !== teacherCode) {  
+            return handleError('Invalid teacher code');
+        }
 
-    if (userType === 'student' && code !== studentCode) {
-        return handleError('Invalid student code');
-    }
-     
-     try {
-            const url = `smit-hackathon-assignment-submission-portal-mern-2cix.vercel.app/auth/signup`;
+        if (userType === 'student' && code !== studentCode) {
+            return handleError('Invalid student code');
+        }
+
+        try {
+            const url = `https://smit-hackathon-assignment-submission-portal-mern-2cix.vercel.app/auth/signup`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ name, email, password, userType }) 
-            });           
-             const result = await response.json();
+            });
+            const result = await response.json();
             const { success, message, error } = result;
 
             if (success) {
                 handleSuccess(message);
                 setTimeout(() => {
                     navigate('/login')
-                }, 1000)
+                }, 1000);
             } else if (error) {
                 const details = error?.details[0].message;
                 handleError(details);

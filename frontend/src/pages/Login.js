@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { handleError, handleSuccess } from '../utils';
-import logo from '../assets/logo.png'
+import logo from '../assets/logo.png';
 
 const studentCode = 'student1234'; 
 const teacherCode = 'missFaiza1122'; 
@@ -13,7 +13,7 @@ function Login() {
         password: '',
         code: '',  
     });
-const [userType, setUserType] = useState(''); 
+    const [userType, setUserType] = useState(''); 
 
     const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ const [userType, setUserType] = useState('');
     const handleLogin = async (e) => {
         e.preventDefault();
         const { email, password, code } = loginInfo;
-    
+
         if (!email || !password || !userType) {
             return handleError('Email, password, and user type are required');
         }
@@ -43,7 +43,7 @@ const [userType, setUserType] = useState('');
         }
 
         try {
-            const url = `smit-hackathon-assignment-submission-portal-mern-2cix.vercel.app/auth/login`;
+            const url = `https://smit-hackathon-assignment-submission-portal-mern-2cix.vercel.app/auth/login`;
             const response = await fetch(url, {
                 method: "POST",
                 headers: {
@@ -146,4 +146,3 @@ const [userType, setUserType] = useState('');
 }
 
 export default Login;
- 
